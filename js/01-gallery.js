@@ -2,7 +2,7 @@ import { galleryItems } from './gallery-items.js';
 // Change code below this line
 const gallery = document.querySelector('.gallery');
 
-function createGallaryCards(images) {
+function createCards(images) {
     return images.map(({preview, original, description }) => {
         return `<div class="gallery__item">
         <a href="${original}" class="gallery__link">
@@ -17,14 +17,14 @@ function createGallaryCards(images) {
         .join(' '); 
 }
 
-const cards = createGallaryCards(galleryItems);
+const cards = createCards(galleryItems);
 gallery.innerHTML = cards;
 
 let instance = {};
 
-gallery.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    const img = evt.target.dataset.source;        
+gallery.addEventListener('click', (event) => {
+    event.preventDefault();
+    const img = event.target.dataset.source;        
     createInstance(img);    
 })
   
@@ -34,20 +34,20 @@ function createInstance(img) {
         {
             onShow: () => {
                 
-                document.addEventListener(('keydown'), escClose)
+                document.addEventListener(('keydown'), modalClose)
             },
             onClose: () => {
                 
-                document.removeEventListener(('keydown'), escClose)
+                document.removeEventListener(('keydown'), modalClose)
             }
         });
     
     instance.show();
 }
 
-function escClose(evt) {
+function modalClose(event) {
     
-    if (evt.code === 'Escape') {
+    if (event.code === 'Escape') {
         
         return instance.close();        
         }
